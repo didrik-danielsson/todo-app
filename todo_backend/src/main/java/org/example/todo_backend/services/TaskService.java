@@ -17,7 +17,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task getTask(String id) {
+    public Task getTask(Long id) {
         return taskRepository.findById(id).orElse(null);
     }
 
@@ -25,7 +25,7 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void deleteTask(String id) {
+    public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
 

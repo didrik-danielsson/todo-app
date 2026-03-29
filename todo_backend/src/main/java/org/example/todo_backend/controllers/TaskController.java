@@ -19,7 +19,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteTask(@RequestParam String id) {
+    public void deleteTask(@RequestParam Long id) {
         taskService.deleteTask(id);
     }
 

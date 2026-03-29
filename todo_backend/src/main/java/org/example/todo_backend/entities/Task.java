@@ -11,8 +11,8 @@ public class Task {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String title;
 
@@ -28,7 +28,7 @@ public class Task {
         this.description = description;
     }
 
-    public String getId() {
+        public Long getId() {
         return id;
     }
 
