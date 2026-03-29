@@ -1,6 +1,5 @@
 package org.example.todo_backend.services;
 
-
 import org.example.todo_backend.entities.Task;
 import org.example.todo_backend.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +31,9 @@ public class TaskService {
 
     public void updateTask(Task task) {
         taskRepository.save(task);
+    }
+
+    public Task getTasksByName(String name) {
+        return taskRepository.findByName(name);
     }
 }
