@@ -33,7 +33,7 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public Task getTasksByName(String name) {
-        return taskRepository.findByName(name);
+    public Task getTasksByTitle(String title) {
+        return taskRepository.findByTitle(title);
     }
 }

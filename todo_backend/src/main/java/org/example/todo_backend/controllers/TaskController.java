@@ -29,8 +29,8 @@ public class TaskController {
     }
 
     @GetMapping("/name/{name}")
-    public Task getTasksByName(@PathVariable String name) {
-        return taskService.getTasksByName(name);
+    public Task getTasksByName(@PathVariable String title) {
+        return taskService.getTasksByTitle(title);
     }
 
     @PutMapping("/update")
