@@ -3,6 +3,7 @@ package org.example.todo_backend.controllers;
 import org.example.todo_backend.entities.Task;
 import org.example.todo_backend.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,9 +20,10 @@ public class TaskController {
         return taskService.addTask(task);
     }
 
-    @DeleteMapping("/delete/${id}")
-    public void deleteTask(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
@@ -29,7 +31,7 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/{name}")
     public Task getTasksByName(@PathVariable String title) {
         return taskService.getTasksByTitle(title);
     }

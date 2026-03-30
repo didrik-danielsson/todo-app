@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
+  // Ta bort en uppgift
   Future<void> _deleteTask(int id) async {
     try {
-     await _taskService.deleteTask(id);
+     _taskService.deleteTask(id);
       await _loadTasks();
     } catch (e) {
       _showError("Kunde inte ta bort: $e");
@@ -48,7 +48,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> addTask(Task newTask) async {
     try {
       await _taskService.createTask(newTask);
-      await _loadTasks();
     } catch (e) {
       _showError('Kunde inte lägga till');
     }
@@ -110,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                 if (context.mounted) {
                   Navigator.pop(context);
                 }
+                _loadTasks();
               },
               child: const Text("Spara")
           ),
