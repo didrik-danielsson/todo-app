@@ -8,7 +8,7 @@ class Task{
   final bool completed;
 
 
-  Task({this.id, required this.title, required this.description, required this.completed, });
+  Task({this.id, required this.title, required this.description, this.completed = false, });
 
 
   factory Task.fromJson(Map<String, Object?> json) {
@@ -27,5 +27,10 @@ class Task{
       'description': description,
       'completed': completed,
     };
+  }
+
+  static List<Task> listfromJson(List<dynamic> jsonList) {
+    return jsonList.map((json) => Task.fromJson(json)).toList();
+
   }
 }
