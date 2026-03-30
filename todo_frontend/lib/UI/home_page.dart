@@ -18,28 +18,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadInitialData();
+    _loadTasks();
   }
 
-  Future<void> _loadInitialData() async {
-    try {
-      final tasks = await _taskService.getAllTasks();
 
-      setState(() {
-        _tasks = tasks;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() => _isLoading = false);
-      _showError("Kunde inte ladda data: $e");
-    }
-  }
 
   Future<void> _loadTasks() async {
     try {
       final tasks = await _taskService.getAllTasks();
       setState(() {
-        tasks;
+        _tasks = tasks;
         _isLoading = false;
       });
     } catch (e) {
@@ -47,10 +35,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+
   Future<void> _deleteTask(int id) async {
     try {
-     _taskService.deleteTask(id);
-      await _loadTasks(); // Ladda om listan efter borttagning
+     await _taskService.deleteTask(id);
+      await _loadTasks();
     } catch (e) {
       _showError("Kunde inte ta bort: $e");
     }
@@ -59,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> addTask(Task newTask) async {
     try {
       await _taskService.createTask(newTask);
+      await _loadTasks();
     } catch (e) {
       _showError('Kunde inte lägga till');
     }
@@ -117,8 +107,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 final newTask = Task(title: titleController.text, description: descController.text);
                 addTask(newTask);
-                Navigator.pop(context);
-                _loadTasks();
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
               },
               child: const Text("Spara")
           ),

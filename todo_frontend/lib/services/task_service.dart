@@ -56,7 +56,7 @@ Future<Task> createTask(Task newTask) async {
 Future<void> deleteTask(int id) async {
 
     try {
-        final Uri url = Uri.parse('$baseUrl/api/tasks/$id');
+        final Uri url = Uri.parse('$baseUrl/api/tasks/delete/${id}');
 
         final http.Response response = await http.delete(url);
 
