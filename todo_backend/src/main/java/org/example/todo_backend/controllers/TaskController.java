@@ -3,17 +3,17 @@ package org.example.todo_backend.controllers;
 import org.example.todo_backend.entities.Task;
 import org.example.todo_backend.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/api/tasks")
 public class TaskController {
 
 
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/tasks")
+    @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskService.addTask(task);
     }
