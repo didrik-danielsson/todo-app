@@ -48,11 +48,11 @@ public class Task {
         this.completed = completed;
     }
 
-    public void setTitle(String title) {
+    public void setTitle() {
         this.title = title;
     }
 
-    public void setDescription(String description) {
+    public void setDescription() {
         this.description = description;
     }
 
