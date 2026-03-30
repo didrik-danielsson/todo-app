@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import './services/TaskService.dart';
 import '../models/Task.dart';
-import '../UI/HomePage.dart';
+import '../UI/home_page.dart';
 
 
 

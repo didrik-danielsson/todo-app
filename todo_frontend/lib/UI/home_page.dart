@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/Task.dart';
-import '../services/TaskService.dart';
+import '../services/task_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,12 +16,25 @@ class _HomePageState extends State<HomePage> {
   bool _isLoading = true;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    _tasks = await _taskService.getAllTasks();
+    _loadInitialData();
   }
 
-  // Hämta listan från backend
+  Future<void> _loadInitialData() async {
+    try {
+      final tasks = await _taskService.getAllTasks();
+
+      setState(() {
+        _tasks = tasks;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+      _showError("Kunde inte ladda data: $e");
+    }
+  }
+
   Future<void> _loadTasks() async {
     try {
       final tasks = await _taskService.getAllTasks();
@@ -34,7 +47,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Ta bort en uppgift
   Future<void> _deleteTask(int id) async {
     try {
      _taskService.deleteTask(id);
@@ -46,8 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> addTask(Task newTask) async {
     try {
-
-      final Task toAdd = await _taskService.createTask(newTask);
+      await _taskService.createTask(newTask);
     } catch (e) {
       _showError('Kunde inte lägga till');
     }

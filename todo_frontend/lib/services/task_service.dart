@@ -9,26 +9,20 @@ class Taskservice {
     String get baseUrl => dotenv.get('BASE_URL');
 
 Future<List<Task>> getAllTasks() async {
-    final http.Client client = http.Client();
 
     try {
-        final Uri url = Uri.parse(
-            '$baseUrl/api/tasks'
-        );
-        final http.Response response = await client.get(url);
+        final http.Response response = await http.get(Uri.parse('$baseUrl/api/tasks'));
+
         if (response.statusCode == 200) {
-            final List<dynamic> jsonData =
-                jsonDecode(response.body);
+            final List<dynamic> jsonData = jsonDecode(response.body);
             print('Getting tasks worked great!!!');
             return Task.listfromJson(jsonData);
         } else {
-            throw HttpException('Something wrong'
+            throw HttpException('Could not get tasks'
             );
         }
-    } on FormatException {
+    } catch (e) {
         rethrow;
-    } finally {
-        client.close();
     }
 }
 
@@ -36,9 +30,9 @@ Future<List<Task>> getAllTasks() async {
 Future<Task> createTask(Task newTask) async {
 
     try {
-    final Uri url = Uri.parse(
-    '$baseUrl/api/tasks'
-        );
+
+    final Uri url = Uri.parse('$baseUrl/api/tasks');
+
     final http.Response response = await http.post(
     url,
     headers: {
@@ -56,7 +50,6 @@ Future<Task> createTask(Task newTask) async {
     } catch (e) {
         rethrow;
     }
-
 }
 
 
